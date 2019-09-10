@@ -1,0 +1,50 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table border="1">
+        <tr>
+            <td>飞机编号</td>
+            <td>起飞机场</td>
+            <td>降落机场</td>
+            <td>航行时间</td>
+            <td>座位</td>
+            <td>起飞时间</td>
+            <td>票价</td>
+            <td>是否卖出</td>
+            <td>退订</td>
+            <td>购买者</td>
+        </tr>
+     <c:forEach items="${selByuser}" var="ap">
+        <tr>
+            
+                <td>${ap.airno }</td>
+                <td>${ap.takePort.portname }</td>
+                <td>${ap.landPort.portname }</td>
+                <td>
+                    <c:if test="${ap.time>60}">
+                        ${(ap.time-ap.time%60)/60}小时${ap.time%60}分钟
+                    </c:if>
+                    <c:if test="${ap.time<60}">
+                        ${ap.time }分钟
+                    </c:if>
+                </td>
+                <td>${ap.seat}</td>
+                <td>${ap.flytime}</td>
+                <td>${ap.price }</td>
+                <td> <c:if test="${ap.exist==1}">否</c:if>
+                <c:if test="${ap.exist==0}">是</c:if>
+                 </td>
+                <td> <a href="RB?id=${ap.id}">退订</a> </td>
+                <td>${ap.user.username}</td>
+        </tr>
+     </c:forEach>
+    </table>
+</body>
+</html>
